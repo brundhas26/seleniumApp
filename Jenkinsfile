@@ -2,13 +2,14 @@ pipeline {
     agent any
 
     tools {
-    maven 'maven'
-}
+        maven 'Maven'
+    }
+
     stages {
 
         stage('Clone') {
             steps {
-                git 'https://github.com/YOUR_USERNAME/MyMavenSeleniumApp01.git'
+                git 'https://github.com/brundhas26/seleniumApp.git'
             }
         }
 
@@ -23,6 +24,5 @@ pipeline {
                 sh 'mvn exec:java -Dexec.mainClass="com.example.App"'
             }
         }
-
     }
 }
