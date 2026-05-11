@@ -2,28 +2,44 @@ pipeline {
     agent any
 
     tools {
-        maven 'maven'
+        maven 'Maven'
     }
 
     stages {
 
-        stage('Clone') {
+        stage('Checkout') {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/brundhas26/seleniumApp.git'
+                url: 'https://github.com/chinmayiii/mavenselenium.git'
             }
         }
 
         stage('Build') {
             steps {
-                sh 'mvn clean install'
+                sh 'mvn clean package'
             }
         }
 
-        stage('Run Selenium Test') {
+        stage('Test') {
             steps {
-                sh 'mvn exec:java -Dexec.mainClass="com.example.App"'
+                sh 'mvn test'
             }
+        }
+
+        stage('Run Selenium') {
+            steps {
+                sh 'mvn exec:java'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Open SauceDemo: https://www.saucedemo.com"
+        }
+
+        failure {
+            echo "Build FAILED"
         }
     }
 }
