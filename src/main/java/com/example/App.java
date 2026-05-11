@@ -11,15 +11,13 @@ public class App {
 
         ChromeOptions options = new ChromeOptions();
 
-        options.addArguments("--headless");
+        options.addArguments("--headless=new");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
 
         WebDriver driver = new ChromeDriver(options);
 
         driver.get("https://www.saucedemo.com/");
-
-        driver.manage().window().maximize();
 
         driver.findElement(By.id("user-name"))
               .sendKeys("standard_user");
@@ -29,6 +27,9 @@ public class App {
 
         driver.findElement(By.id("login-button"))
               .click();
+
+        // Print current page URL
+        System.out.println("Current URL: " + driver.getCurrentUrl());
 
         System.out.println("Login Successful");
 
